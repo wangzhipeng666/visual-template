@@ -1,14 +1,32 @@
 <template>
   <div class="home">
     <Toolbar />
+
+    <main>
+      <!-- 左侧组件列表 -->
+      <section class="left">
+        <span>
+          <ComponentList />
+        </span>
+      </section>
+      <!-- 中间画布 -->
+      <section class="center">
+        <span>center</span>
+      </section>
+      <!-- 右侧属性列表 -->
+      <section class="right">
+        <span>right</span>
+      </section>
+    </main>
   </div>
 </template>
 
 <script>
 import Toolbar from '@/components/Toolbar.vue';
+import ComponentList from '@/components/ComponentList.vue'; // 左侧列表组件
 
 export default {
-  components: { Toolbar },
+  components: { Toolbar, ComponentList },
 };
 </script>
 
