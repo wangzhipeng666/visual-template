@@ -11,7 +11,15 @@
       </section>
       <!-- 中间画布 -->
       <section class="center">
-        <span>center</span>
+        <div
+          class="content"
+          @drop="handleDrop"
+          @dragover="handleDragOver"
+          @mousedown="handleMouseDown"
+          @mouseup="deselectCurComponent"
+        >
+          <Editor />
+        </div>
       </section>
       <!-- 右侧属性列表 -->
       <section class="right">
@@ -24,9 +32,10 @@
 <script>
 import Toolbar from '@/components/Toolbar.vue';
 import ComponentList from '@/components/ComponentList.vue'; // 左侧列表组件
+import Editor from '@/components/Editor/index.vue'; // 中间画布区
 
 export default {
-  components: { Toolbar, ComponentList },
+  components: { Toolbar, ComponentList, Editor },
 };
 </script>
 
