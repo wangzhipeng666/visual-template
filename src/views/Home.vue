@@ -13,10 +13,10 @@
       <section class="center">
         <div
           class="content"
-          @drop="handleDrop"
-          @dragover="handleDragOver"
-          @mousedown="handleMouseDown"
-          @mouseup="deselectCurComponent"
+          @drop="console.log('111');"
+          @dragover="console.log('111');"
+          @mousedown="console.log('111');"
+          @mouseup="console.log('111');"
         >
           <Editor />
         </div>

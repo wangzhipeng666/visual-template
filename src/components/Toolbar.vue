@@ -41,20 +41,30 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
       scale: 100,
-      canvasStyleData: {
-        width: '100',
-        height: '100',
-      },
+      timer: null,
     };
   },
+  computed: mapState([
+    'canvasStyleData',
+  ]),
   methods: {
     handleScaleChange() {
-
+      // 画布比例设一个最小值，不能为 0，否则画布的组件会消失。
+      this.timer = setTimeout(() => {
+        // eslint-disable-next-line no-bitwise
+        this.scale = (~~this.scale) || 1;
+        // 根据画布比例修改画布样式
+      }, 1000);
     },
+  },
+  created() {
+    this.scale = this.canvasStyleData.scale;
   },
 };
 </script>
