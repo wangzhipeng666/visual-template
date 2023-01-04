@@ -26,11 +26,16 @@ export default {
     },
   },
   computed: mapState([
+    'componentData',
     'canvasStyleData',
   ]),
   methods: {
     getCanvasStyle,
     changeStyleWithScale,
+  },
+  mounted() {
+    // 获取编辑器元素
+    this.$store.commit('getEditor');
   },
 };
 </script>

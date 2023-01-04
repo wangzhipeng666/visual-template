@@ -13,10 +13,8 @@
       <section class="center">
         <div
           class="content"
-          @drop="console.log('111');"
-          @dragover="console.log('111');"
-          @mousedown="console.log('111');"
-          @mouseup="console.log('111');"
+          @drop="handleDrop"
+          @dragover="handleDragOver"
         >
           <Editor />
         </div>
@@ -33,9 +31,38 @@
 import Toolbar from '@/components/Toolbar.vue';
 import ComponentList from '@/components/ComponentList.vue'; // 左侧列表组件
 import Editor from '@/components/Editor/index.vue'; // 中间画布区
+import { mapState } from 'vuex';
+import { deepCopy } from '@/utils/utils';
+import generateID from '@/utils/generateID';
 
 export default {
   components: { Toolbar, ComponentList, Editor },
+  computed: mapState([
+    'editor',
+  ]),
+  methods: {
+    handleDrop(e) {
+      e.preventDefault(); // 解决Firefox浏览器会跳转链接
+      e.stopPropagation(); // 解决firefo浏览器拖拽元素新打开一个搜索页面
+
+      const index = e.dataTransfer.getData('index');
+      const rectInfo = this.editor.getBoundingClientRect();
+      if (index) {
+        const component = deepCopy(ComponentList[index]);
+        component.style.top = e.clientY - rectInfo.y;
+        component.style.left = e.clientX - rectInfo.x;
+
+        component.id = generateID();
+        console.log(component.id);
+        // 根据画面比例修改组件样式比例
+        this.$store.commit('addComponent', { component });
+      }
+    },
+    handleDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'copy';
+    },
+  },
 };
 </script>
 
