@@ -9,7 +9,8 @@
             height: changeStyleWithScale(canvasStyleData.height) + 'px',
         }"
     >
-
+        <!-- 网格线 -->
+        <Grid />
   </div>
 </template>
 
@@ -17,8 +18,10 @@
 import { getCanvasStyle } from '@/utils/style';
 import { changeStyleWithScale } from '@/utils/translate';
 import { mapState } from 'vuex';
+import Grid from './Grid.vue';
 
 export default {
+  components: { Grid },
   props: {
     isEdit: {
       type: Boolean,
