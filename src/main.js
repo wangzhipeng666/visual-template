@@ -3,6 +3,7 @@ import ElementUI from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import '@/custom-component'; // 注册自定义组件
 
 import '@/assets/iconfont/iconfont.css';
 import 'element-ui/lib/theme-chalk/index.css';

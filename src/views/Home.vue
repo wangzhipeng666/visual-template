@@ -34,6 +34,7 @@ import Editor from '@/components/Editor/index.vue'; // 中间画布区
 import { mapState } from 'vuex';
 import { deepCopy } from '@/utils/utils';
 import generateID from '@/utils/generateID';
+import componentList from '@/custom-component/component-list'; // 左侧列表数据
 
 export default {
   components: { Toolbar, ComponentList, Editor },
@@ -48,7 +49,8 @@ export default {
       const index = e.dataTransfer.getData('index');
       const rectInfo = this.editor.getBoundingClientRect();
       if (index) {
-        const component = deepCopy(ComponentList[index]);
+        const component = deepCopy(componentList[index]);
+        console.log(component);
         component.style.top = e.clientY - rectInfo.y;
         component.style.left = e.clientX - rectInfo.x;
 

@@ -11,11 +11,30 @@
     >
         <!-- 网格线 -->
         <Grid />
+        <!--页面组件列表展示-->
+        <div
+          v-for="(item, index) in componentData"
+          :key="item.id"
+          :default-style="item.style"
+          :style="getShapeStyle(item.style)"
+          :element="item"
+          :index="index"
+          :class="{ lock: item.isLock }"
+        >
+        <component
+          :is="item.component"
+          :id="'component' + item.id"
+          class="component"
+          :style="getComponentStyle(item.style)"
+          :prop-value="item.propValue"
+          :element="item"
+        />
+        </div>
   </div>
 </template>
 
 <script>
-import { getCanvasStyle } from '@/utils/style';
+import { getCanvasStyle, getShapeStyle, getStyle } from '@/utils/style';
 import { changeStyleWithScale } from '@/utils/translate';
 import { mapState } from 'vuex';
 import Grid from './Grid.vue';
@@ -28,6 +47,11 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      svgFilterAttrs: ['width', 'height', 'top', 'left', 'rotate'],
+    };
+  },
   computed: mapState([
     'componentData',
     'canvasStyleData',
@@ -35,6 +59,12 @@ export default {
   methods: {
     getCanvasStyle,
     changeStyleWithScale,
+    getShapeStyle,
+    getStyle,
+
+    getComponentStyle(style) {
+      return getStyle(style, this.svgFilterAttrs);
+    },
   },
   mounted() {
     // 获取编辑器元素
