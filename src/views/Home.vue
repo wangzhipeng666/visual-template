@@ -21,7 +21,17 @@
       </section>
       <!-- 右侧属性列表 -->
       <section class="right">
-        <span>right</span>
+        <el-tabs v-if="curComponent" v-model="activeName">
+          <el-tab-pane label="属性" name="attr">
+            <component :is="curComponent.component + 'Attr'" />
+          </el-tab-pane>
+          <el-tab-pane label="动画" name="animation" style="padding-top: 20px;">
+            <span>动画</span>
+          </el-tab-pane>
+          <el-tab-pane label="事件" name="events" style="padding-top: 20px;">
+            <span>事件</span>
+          </el-tab-pane>
+        </el-tabs>
       </section>
     </main>
   </div>
@@ -41,7 +51,13 @@ export default {
   components: { Toolbar, ComponentList, Editor },
   computed: mapState([
     'editor',
+    'curComponent',
   ]),
+  data() {
+    return {
+      activeName: 'attr',
+    };
+  },
   methods: {
     changeComponentSizeWithScale,
     handleDrop(e) {
