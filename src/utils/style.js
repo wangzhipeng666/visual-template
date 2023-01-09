@@ -20,6 +20,7 @@ export function getShapeStyle(style) {
       result.transform = `rotate(${style[attr]})deg`;
     }
   });
+  return result;
 }
 
 const needUnit = [
@@ -50,6 +51,5 @@ export function getStyle(style, filter = []) {
       }
     }
   });
-
   return result;
 }

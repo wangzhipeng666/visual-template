@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import Vuex from 'vuex';
 import compose from './compose';
@@ -18,6 +19,8 @@ export default new Vuex.Store({
       fontSize: 14,
     },
     componentData: [], // 画布组件数据
+    curComponent: null,
+    curComponentIndex: null,
   },
   mutations: {
     ...compose.mutations,
@@ -28,6 +31,22 @@ export default new Vuex.Store({
       } else {
         state.componentData.push(component);
       }
+    },
+    setCurComponent(state, { component, index }) {
+      state.curComponent = component;
+      state.curComponentIndex = index;
+    },
+    setShapeStyle({ curComponent }, {
+      top, left, width, height, rotate,
+    }) {
+      if (top) curComponent.style.top = Math.round(top);
+      if (left) curComponent.style.left = Math.round(left);
+      if (width) curComponent.style.width = Math.round(width);
+      if (height) curComponent.style.height = Math.round(height);
+      if (rotate) curComponent.style.rotate = Math.round(rotate);
+    },
+    setShapeSingleStyle({ curComponent }, { key, value }) {
+      curComponent.style[key] = value;
     },
   },
   actions: {

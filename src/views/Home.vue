@@ -35,6 +35,7 @@ import { mapState } from 'vuex';
 import { deepCopy } from '@/utils/utils';
 import generateID from '@/utils/generateID';
 import componentList from '@/custom-component/component-list'; // 左侧列表数据
+import changeComponentSizeWithScale from '@/utils/changeComponentsSizeWithScale';
 
 export default {
   components: { Toolbar, ComponentList, Editor },
@@ -42,6 +43,7 @@ export default {
     'editor',
   ]),
   methods: {
+    changeComponentSizeWithScale,
     handleDrop(e) {
       e.preventDefault(); // 解决Firefox浏览器会跳转链接
       e.stopPropagation(); // 解决firefo浏览器拖拽元素新打开一个搜索页面
@@ -50,13 +52,12 @@ export default {
       const rectInfo = this.editor.getBoundingClientRect();
       if (index) {
         const component = deepCopy(componentList[index]);
-        console.log(component);
         component.style.top = e.clientY - rectInfo.y;
         component.style.left = e.clientX - rectInfo.x;
 
         component.id = generateID();
-        console.log(component.id);
         // 根据画面比例修改组件样式比例
+        changeComponentSizeWithScale(component);
         this.$store.commit('addComponent', { component });
       }
     },

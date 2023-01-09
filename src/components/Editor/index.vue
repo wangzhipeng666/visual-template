@@ -12,11 +12,12 @@
         <!-- 网格线 -->
         <Grid />
         <!--页面组件列表展示-->
-        <div
+        <Shape
           v-for="(item, index) in componentData"
           :key="item.id"
           :default-style="item.style"
           :style="getShapeStyle(item.style)"
+          :active="item.id === (curComponent || {}).id"
           :element="item"
           :index="index"
           :class="{ lock: item.isLock }"
@@ -29,7 +30,7 @@
           :prop-value="item.propValue"
           :element="item"
         />
-        </div>
+        </Shape>
   </div>
 </template>
 
@@ -38,9 +39,10 @@ import { getCanvasStyle, getShapeStyle, getStyle } from '@/utils/style';
 import { changeStyleWithScale } from '@/utils/translate';
 import { mapState } from 'vuex';
 import Grid from './Grid.vue';
+import Shape from './Shape.vue';
 
 export default {
-  components: { Grid },
+  components: { Grid, Shape },
   props: {
     isEdit: {
       type: Boolean,
@@ -54,6 +56,7 @@ export default {
   },
   computed: mapState([
     'componentData',
+    'curComponent',
     'canvasStyleData',
   ]),
   methods: {
